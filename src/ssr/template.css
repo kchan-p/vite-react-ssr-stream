@@ -1,0 +1,12 @@
+.loading:before {
+    content: "";
+    width: 10px;
+    height: 10px;
+    border: 2px solid aqua;
+    border-radius: 50%;
+    border-top-color: brown;
+    border-bottom-color: brown;
+    animation: spin 1s ease-in-out infinite;
+    display: inline-block;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
