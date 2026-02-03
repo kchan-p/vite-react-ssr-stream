@@ -1,7 +1,6 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
-import fs from "fs";
-import path from "path";
+import { viteStaticCopy } from "vite-plugin-static-copy";
 
 // https://vite.dev/config/
 export default defineConfig(({ command, isSsrBuild }) => {
@@ -13,7 +12,19 @@ export default defineConfig(({ command, isSsrBuild }) => {
         babel: {
           plugins: ['babel-plugin-react-compiler'],
         },
-      })
+      }),
+      viteStaticCopy({
+        targets: [
+          {
+            src: [
+              "src/ssr/template.html",
+              "src/ssr/template.css"
+            ],
+            dest: "",
+          },
+        ],
+        environment: "ssr"
+      }),
     ],
 
     esbuild: {
@@ -28,20 +39,6 @@ export default defineConfig(({ command, isSsrBuild }) => {
           output: {
             format: "esm",
           },
-          plugins: [
-            {
-              name: "copy-static-files",
-              writeBundle() {
-                const files=["template.html","template.css"];
-                files.forEach( f=>{
-                  const src = path.resolve(`src/ssr/${f}`);
-                  const dest = path.resolve(`dist/ssr/${f}`);
-                  fs.copyFileSync(src, dest);
-                });
-
-              },
-            },
-          ],
         },
       }
       : {
