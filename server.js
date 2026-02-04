@@ -36,7 +36,7 @@ const render = await (async () => {
         // manifest.jsonからビルド後のスクリプトファイル名を取得
         const manifest = JSON.parse(
             fs.readFileSync("dist/csr/manifest.json")
-        )["index.html"];
+        )["src/csr/csr.html"];
 
         const template = loadTemplate(root, isProd)
             .replace(SCRIPT_PRD, `<script type="module" crossorigin src="/${manifest.file}"></script>`)

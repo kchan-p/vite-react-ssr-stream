@@ -45,6 +45,9 @@ export default defineConfig(({ command, isSsrBuild }) => {
         // CSR ビルド
         outDir: "dist/csr",
         manifest: "manifest.json",
+        rollupOptions: {
+          input: "src/csr/csr.html"
+        }
       },
     ssr: isDev
       ? {
